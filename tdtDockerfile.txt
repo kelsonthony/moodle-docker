@@ -1,0 +1,7 @@
+FROM docker.io/bitnami/moodle:3-debian-10
+
+WORKDIR /var/www/html/
+
+COPY * ./
+ENV PORT 80
+
