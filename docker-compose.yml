@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  moodle:
+    build: .
+    container_name: moodlenginx
+    ports:
+      - '5000:80'
+    volumes:
+      - ./:/var/www/html
+      - moodledata:/var/www/moodledata
+      - phpunitdata:/var/www/phpunitdata
+      - behatdata:/var/www/behatdata
+      - behatfaildumps:/var/www/behatfaildumps
+    restart: always 
+
+  postgres:
+    image: postgres:10
+    container_name: moodledb
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust 
+      POSTGRES_DB: moodledb
+      POSTGRES_USER: moodleuser
+      POSTGRESS_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  db_data:
+  moodledata:
+  phpunitdata:
+  behatdata:
+  behatfaildumps:
